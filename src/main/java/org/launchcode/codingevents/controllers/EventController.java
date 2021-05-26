@@ -51,4 +51,8 @@ public class EventController {
         }
         return "redirect:";
     }
+
+    public String displayEditForm(Model model, @PathVariable int eventId){
+        //controller code here
+    }
 }
