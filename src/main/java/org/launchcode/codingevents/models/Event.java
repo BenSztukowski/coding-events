@@ -15,6 +15,7 @@ public class Event {
     @Size(max = 500, message = "Description too long!")
     private String description;
 
+    @NotBlank(message= "email is required")
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
@@ -25,6 +26,10 @@ public class Event {
         this.contactEmail=contactEmail;
         this.id = nextId;
         nextId++;
+    }
+
+    public Event(){
+
     }
 
     public String getContactEmail() {
