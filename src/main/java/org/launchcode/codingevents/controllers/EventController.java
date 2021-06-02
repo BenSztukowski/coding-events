@@ -36,9 +36,10 @@ public class EventController {
         if(errors.hasErrors()){
             model.addAttribute("title", "Create Event");
             return "events/create";
+        } else {
+            EventData.add(newEvent);
+            return "redirect:";
         }
-        EventData.add(newEvent);
-        return "redirect:";
     }
 
     @GetMapping("delete")
