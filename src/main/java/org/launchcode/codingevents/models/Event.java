@@ -29,13 +29,16 @@ public class Event {
     @Positive(message = "Must enter a positive number")
     private int numberOfAttendees;
 
+    private EventType type;
+
     public Event(){
         this.id=nextId;
         nextId++;
 
     }
 
-    public Event(String name, String description, String contactEmail, String location, boolean register, int numberOfAttendees)
+    public Event(String name, String description, String contactEmail, String location, boolean register,
+                 int numberOfAttendees, EventType type)
     {
         this();
         this.name = name;
@@ -43,11 +46,18 @@ public class Event {
         this.contactEmail=contactEmail;
         this.location=location;
         this.register=register;
+        this.type=type;
         this.numberOfAttendees=numberOfAttendees;
 
     }
 
+    public EventType getType() {
+        return type;
+    }
 
+    public void setType(EventType type) {
+        this.type = type;
+    }
 
     public boolean getRegister() {
         return register;
