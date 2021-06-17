@@ -1,12 +1,17 @@
 package org.launchcode.codingevents.models;
 
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 
+@Entity
 public class Event {
 
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
     @Size(min = 3, max= 50, message="Name must be between 3 and 50 characters.")
     @NotBlank(message = "Name is required")
@@ -23,29 +28,20 @@ public class Event {
     @NotNull(message="Must enter location")
     private String location;
 
-    @AssertTrue(message= "All events must be registered for")
-    private boolean register;
-
     @Positive(message = "Must enter a positive number")
     private int numberOfAttendees;
 
     private EventType type;
 
-    public Event(){
-        this.id=nextId;
-        nextId++;
+    public Event(){ }
 
-    }
-
-    public Event(String name, String description, String contactEmail, String location, boolean register,
+    public Event(String name, String description, String contactEmail, String location,
                  int numberOfAttendees, EventType type)
     {
-        this();
         this.name = name;
         this.description=description;
         this.contactEmail=contactEmail;
         this.location=location;
-        this.register=register;
         this.type=type;
         this.numberOfAttendees=numberOfAttendees;
 
@@ -57,14 +53,6 @@ public class Event {
 
     public void setType(EventType type) {
         this.type = type;
-    }
-
-    public boolean getRegister() {
-        return register;
-    }
-
-    public void setRegister(boolean register) {
-        this.register = register;
     }
 
     public int getNumberOfAttendees() {

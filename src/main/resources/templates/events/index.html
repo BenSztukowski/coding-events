@@ -18,7 +18,6 @@
                 <th>Contact Email</th>
                 <th>Type</th>
                 <th>Location</th>
-                <th>Register?</th>
                 <th>Attendees</th>
             </tr>
         </thead>
@@ -29,7 +28,6 @@
             <td th:text="${event.contactEmail}"></td>
             <td th:text="${event.type.displayName}"></td>
             <td th:text="${event.location}"></td>
-            <td th:text="${event.register}"></td>
             <td th:text="${event.numberOfAttendees}"></td>
             <td>
                 <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
