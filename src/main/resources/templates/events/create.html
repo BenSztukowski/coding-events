@@ -14,15 +14,15 @@
     </div>
     <div class="form-group">
         <label>Description
-            <input th:field="${event.description}" class="form-control">
+            <input th:field="${event.eventDetails.description}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.description}"></p>
+        <p class="error" th:errors="${event.eventDetails.description}"></p>
     </div>
     <div class="form-group">
         <label>Contact email
-            <input th:field ="${event.contactEmail}" class="form-control">
+            <input th:field ="${event.eventDetails.contactEmail}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.contactEmail}"></p>
+        <p class="error" th:errors="${event.eventDetails.contactEmail}"></p>
     </div>
     <div class="form-group">
         <label>Category
@@ -37,15 +37,15 @@
     </div>
     <div class="form-group">
         <label>Location
-            <input th:field ="${event.location}" class="form-control">
+            <input th:field ="${event.eventDetails.location}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.location}"></p>
+        <p class="error" th:errors="${event.eventDetails.location}"></p>
     </div>
     <div class="form-group">
         <label>Number of attendees
-            <input type="number" value="0" th:field ="${event.numberOfAttendees}" class="form-control">
+            <input type="number" value="0" th:field ="${event.eventDetails.numberOfAttendees}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.numberOfAttendees}"></p>
+        <p class="error" th:errors="${event.eventDetails.numberOfAttendees}"></p>
     </div>
     <div class="form-group">
         <input type="submit" value="Create Event" class="btn btn-success">

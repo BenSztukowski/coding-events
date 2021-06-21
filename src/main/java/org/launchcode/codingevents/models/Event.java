@@ -1,8 +1,10 @@
 package org.launchcode.codingevents.models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Event extends AbstractEntity {
@@ -11,35 +13,24 @@ public class Event extends AbstractEntity {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @Size(max = 500, message = "Description too long!")
-    private String description;
-
-    @NotBlank(message= "email is required")
-    @Email(message = "Invalid email. Try again.")
-    private String contactEmail;
-
-    @NotBlank(message="Must enter location")
-    @NotNull(message="Must enter location")
-    private String location;
-
-    @Positive(message = "Must enter a positive number")
-    private int numberOfAttendees;
+    @OneToOne(cascade = CascadeType.ALL)
+    @Valid
+    @NotNull
+    private EventDetails eventDetails;
 
     @ManyToOne
     @NotNull(message = "Category is required")
     private EventCategory eventCategory;
 
+    @ManyToMany
+    private final List<Tag> tags = new ArrayList<>();
+
     public Event(){ }
 
-    public Event(String name, String description, String contactEmail, String location,
-                 int numberOfAttendees, EventCategory eventCategory)
+    public Event(String name, EventCategory eventCategory)
     {
         this.name = name;
-        this.description=description;
-        this.contactEmail=contactEmail;
-        this.location=location;
         this.eventCategory=eventCategory;
-        this.numberOfAttendees=numberOfAttendees;
 
     }
 
@@ -51,36 +42,12 @@ public class Event extends AbstractEntity {
         this.eventCategory = eventCategory;
     }
 
-    public int getNumberOfAttendees() {
-        return numberOfAttendees;
+    public EventDetails getEventDetails() {
+        return eventDetails;
     }
 
-    public void setNumberOfAttendees(int numberOfAttendees) {
-        this.numberOfAttendees = numberOfAttendees;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEventDetails(EventDetails eventDetails) {
+        this.eventDetails = eventDetails;
     }
 
     public String getName() {
@@ -91,10 +58,17 @@ public class Event extends AbstractEntity {
         this.name = name;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag){
+        this.tags.add(tag);
+    }
 
     @Override
     public String toString() {
-        return "Id: "+ "\nName: " + name + "\nDescription: " + description;
+        return "Id: "+ "\nName: " + name;
     }
 
 }

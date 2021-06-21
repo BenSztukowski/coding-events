@@ -2,6 +2,7 @@ package org.launchcode.codingevents.controllers;
 
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
+import org.launchcode.codingevents.data.TagRepository;
 import org.launchcode.codingevents.models.Event;
 import org.launchcode.codingevents.models.EventCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class EventController {
 
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     //findAll, save, findById are included as part of the interface
 
@@ -60,6 +64,7 @@ public class EventController {
             model.addAttribute("title", "Create Event");
             return "events/create";
         } else {
+
             eventRepository.save(newEvent);
             return "redirect:";
         }
@@ -83,6 +88,20 @@ public class EventController {
         return "redirect:";
     }
 
+    @GetMapping("detail")
+    public String displayEventDetails(@RequestParam Integer eventId, Model model){
+        Optional<Event> result = eventRepository.findById(eventId);
+
+        if(result.isEmpty()) {
+            model.addAttribute("title", "Invalid Event Id: " + eventId);
+        } else {
+            Event event = result.get();
+            model.addAttribute("title", event.getName() + " Details");
+            model.addAttribute("event", event);
+        }
+
+        return "events/detail";
+    }
     //lives at events/edit/{id}
 //    @GetMapping("edit/{eventId}")
 //    public String displayEditForm(Model model, @PathVariable int eventId){
