@@ -1,17 +1,11 @@
 package org.launchcode.codingevents.models;
 
-import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 
 @Entity
 public class Event extends AbstractEntity {
-
-//    @Id
-//    @GeneratedValue
-//    private int id;
 
     @Size(min = 3, max= 50, message="Name must be between 3 and 50 characters.")
     @NotBlank(message = "Name is required")
@@ -31,28 +25,30 @@ public class Event extends AbstractEntity {
     @Positive(message = "Must enter a positive number")
     private int numberOfAttendees;
 
-    private EventType type;
+    @ManyToOne
+    @NotNull(message = "Category is required")
+    private EventCategory eventCategory;
 
     public Event(){ }
 
     public Event(String name, String description, String contactEmail, String location,
-                 int numberOfAttendees, EventType type)
+                 int numberOfAttendees, EventCategory eventCategory)
     {
         this.name = name;
         this.description=description;
         this.contactEmail=contactEmail;
         this.location=location;
-        this.type=type;
+        this.eventCategory=eventCategory;
         this.numberOfAttendees=numberOfAttendees;
 
     }
 
-    public EventType getType() {
-        return type;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
     public int getNumberOfAttendees() {
@@ -95,25 +91,10 @@ public class Event extends AbstractEntity {
         this.name = name;
     }
 
-//    public int getId() {
-//        return id;
-//    }
 
     @Override
     public String toString() {
         return "Id: "+ "\nName: " + name + "\nDescription: " + description;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Event event = (Event) o;
-//        return id == event.id;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id);
-//    }
 }
