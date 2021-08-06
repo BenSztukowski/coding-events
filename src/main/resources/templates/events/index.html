@@ -5,7 +5,6 @@
 
 </head>
 <body class="container">
-    <h1>All Events</h1>
 
     <nav th:replace="fragments :: navigation"></nav>
 
@@ -13,11 +12,14 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Event Name</th>
             </tr>
         </thead>
         <tr th:each="event : ${events}">
-            <td th:text="${event}"></td>
+            <td><a th:href="'/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></a></td>
+            <td>
+                <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
+            </td>
         </tr>
     </table>
 
