@@ -9,6 +9,8 @@ import java.util.List;
 @Entity
 public class Event extends AbstractEntity {
 
+    private EventImage eventImage;
+
     @Size(min = 3, max= 50, message="Name must be between 3 and 50 characters.")
     @NotBlank(message = "Name is required")
     private String name;
@@ -31,6 +33,7 @@ public class Event extends AbstractEntity {
     {
         this.name = name;
         this.eventCategory=eventCategory;
+        this.eventImage = eventImage;
 
     }
 
@@ -64,6 +67,14 @@ public class Event extends AbstractEntity {
 
     public void addTag(Tag tag){
         this.tags.add(tag);
+    }
+
+    public EventImage getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(EventImage eventImage) {
+        this.eventImage = eventImage;
     }
 
     @Override

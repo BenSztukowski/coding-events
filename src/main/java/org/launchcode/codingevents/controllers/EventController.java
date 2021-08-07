@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.FileUploadUtil;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventImageRepository;
 import org.launchcode.codingevents.data.EventRepository;
@@ -91,19 +92,18 @@ public class EventController {
     private EventImageRepository eventImageRepository;
 
     @PostMapping("/EventImage/save")
-    public RedirectView saveImage(EventImage eventImage, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    public RedirectView saveImage(Event event, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            eventImage.setPhotos(fileName);
+            event.setPhotos(fileName);
 
-            EventImage savedEventImage = eventImageRepository.save(eventImage);
+            EventImage savedEventImage = eventImageRepository.save(event);
 
             String uploadDir = "user-photos/" + savedEventImage.getId();
 
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
             return new RedirectView("redirect:", true);
-        }
     }
 
 
