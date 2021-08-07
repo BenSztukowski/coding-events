@@ -19,6 +19,17 @@
         <p class="error" th:errors="${event.eventDetails.description}"></p>
     </div>
     <div class="form-group">
+        <form th:action="@{/EventImage/save}"
+              th:object="${event}" method="post"
+              enctype="multipart/form-data">
+        <div>
+            <label>Add Image (optional) </label>
+            <input type="file" name="image" accept="image/png, image/jpeg" />
+        </div>
+        </form>
+        <p class="error" th:errors="${event.eventDetails.description}"></p>
+    </div>
+    <div class="form-group">
         <label>Contact email
             <input th:field ="${event.eventDetails.contactEmail}" class="form-control">
         </label>

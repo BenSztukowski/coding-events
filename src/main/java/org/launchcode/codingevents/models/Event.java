@@ -27,7 +27,7 @@ public class Event extends AbstractEntity {
 
     public Event(){ }
 
-    public Event(String name, EventCategory eventCategory)
+    public Event(String name, EventCategory eventCategory, EventImage eventImage)
     {
         this.name = name;
         this.eventCategory=eventCategory;

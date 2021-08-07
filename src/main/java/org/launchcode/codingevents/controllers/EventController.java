@@ -1,20 +1,24 @@
 package org.launchcode.codingevents.controllers;
 
 import org.launchcode.codingevents.data.EventCategoryRepository;
+import org.launchcode.codingevents.data.EventImageRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.data.TagRepository;
+import org.launchcode.codingevents.models.*;
 import org.launchcode.codingevents.models.Event;
-import org.launchcode.codingevents.models.EventCategory;
-import org.launchcode.codingevents.models.EventDetails;
-import org.launchcode.codingevents.models.Tag;
 import org.launchcode.codingevents.models.dto.EventTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.awt.*;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -82,6 +86,26 @@ public class EventController {
             return "redirect:";
         }
     }
+
+    @Autowired
+    private EventImageRepository eventImageRepository;
+
+    @PostMapping("/EventImage/save")
+    public RedirectView saveImage(EventImage eventImage, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            eventImage.setPhotos(fileName);
+
+            EventImage savedEventImage = eventImageRepository.save(eventImage);
+
+            String uploadDir = "user-photos/" + savedEventImage.getId();
+
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+            return new RedirectView("redirect:", true);
+        }
+    }
+
 
     @GetMapping("delete")
     public String displayDeleteEventForm(Model model) {
